@@ -70,16 +70,17 @@ $(() => {
 });
 
 var score = 0;
-const scoreX = canvas.width - 80;
+const scoreX = 0;
 const scoreY = 0;
-const scoreW = 80;
+const scoreW = canvas.width;
 const scoreH = 20;
 function updateScore () {
     ctx.clearRect(scoreX, scoreY, scoreW, scoreH);
     score += .1;
-    ctx.font = "20px Verdana";
+    ctx.font = "10px Verdana";
+    ctx.fillStyle = "white";
     ctx.textAlign = "left";
-    ctx.fillText(parseInt(score), scoreX + (scoreW / 2), scoreY + (scoreH / 2) + 10, scoreW - 10);
+    ctx.fillText(parseInt(score), scoreX + 10, scoreY + 14, scoreW);
     window.requestAnimationFrame(updateScore);
 };
 window.requestAnimationFrame(updateScore);
@@ -95,6 +96,7 @@ function moveObstacle () {
         obX = canvas.width;
         obSpeed = Math.floor(Math.random() * (5 - 2) ) + 2;
     }
+    ctx.fillStyle = "black";
     ctx.fillRect(obX, obY, obSize, obSize);
     window.requestAnimationFrame(moveObstacle);
 };
