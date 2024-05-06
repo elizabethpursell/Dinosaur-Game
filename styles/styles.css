@@ -1,74 +1,36 @@
 #container {
-    width: 700px;
+    width: 1000px;
     height: 500px;
     margin: auto;
-    padding: 10px;
     background-color: #B700DB;
     color: white;
-    display: grid;
-    grid-template-columns: auto 175px;
-    grid-template-rows: 80px auto;
-    grid-template-areas:
-        'header header'
-        'main right';
-    font-family: 'Teko', sans-serif;
-}
-header {
-    grid-area: header;
-}
-#title {
-    text-align: center;
-    font-size: 3.5em;
-    font-weight: bold;
-    display: block;
-    padding-top: 10px;
-}
-table {
-    grid-area: main;
-    margin: 20px;
-    margin-right: 10px;
-    height: 380px;
-}
-#right-side {
-    grid-area: right;
     display: flex;
-    align-items: center;
-    justify-content: center;
-}
-th, td {
-    border: 1px solid black;
-    border-collapse: collapse;
-    color: white;
-}
-#puzzle {
-    border: 1px solid black;
-    border-collapse: collapse;
-    background-color: #DB009B;
-    color: white;
-}
-td {
-    text-align: center;
-    cursor: pointer;
-    width: 25%;
-}
-button {
-    width: 120px;
-    padding: 10px;
-    border-radius: 12px;
-    background-color: #FA00CF;
-    border: 1px solid black;
-    display: block;
-    color: white;
-    cursor: pointer;
-    font-size: 1.5em;
     font-family: 'Teko', sans-serif;
 }
-#buttons {
-    list-style: none;
+
+canvas {
+    margin: auto;
+    width: 600px;
+    height: 300px;
+    background-color: #3ba00f;
+}
+
+#heading {
+    text-align: center;
+    position: fixed;
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+h1 {
     padding: 0;
+    padding-top: 15px;
     margin: 0;
 }
-li {
-    text-align: center;
-    margin: 1rem;
+
+p {
+    padding: 0;
+    margin: 0;
+    font-size: 20px;
 }
