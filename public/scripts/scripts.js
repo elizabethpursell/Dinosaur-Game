@@ -18,18 +18,6 @@ $("#canvas")[0].click((event) => {
     jump();
 });
 
-/*function moveObstacle() {
-    if(obstacleX + size <= 0) {
-        obstacleX = 800;
-    }
-    ctx.clearRect(obstacleX-speed, obstacleY, obstacleX+size, obstacleY+size);
-    ctx.fillRect(obstacleX, obstacleY, size, size);
-    obstacleX -= speed;
-    window.requestAnimationFrame(moveObstacle);
-}
-
-window.requestAnimationFrame(moveObstacle);*/
-
 let obX = canvas.width;
 let obY = 125;
 const obSize = 25;
