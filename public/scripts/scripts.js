@@ -1,6 +1,22 @@
-// canvas initializing, needed globally
+//canvas initializing, needed globally
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
+
+function jump(){
+    //TODO: Make character jump
+    console.log("JUMPED");
+    
+}
+
+function drawChar() {
+    //Draw rectangle
+    ctx.fillStyle = "blue";
+    ctx.fillRect(100, 100, 50, 50);
+}
+
+$("#canvas")[0].click((event) => {
+    jump();
+});
 
 var obstacleX = 800;
 var obstacleY = 500;
@@ -18,3 +34,12 @@ function moveObstacle() {
 }
 
 window.requestAnimationFrame(moveObstacle);
+
+function init() {
+    drawChar();
+}
+
+//page is loaded, calls init function
+$(() => {
+    init();
+});
