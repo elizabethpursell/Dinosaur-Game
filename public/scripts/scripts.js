@@ -18,28 +18,40 @@ $("#canvas")[0].click((event) => {
     jump();
 });
 
-var obstacleX = 800;
-var obstacleY = 500;
-var size = 100;
-var speed = 5;
-
-function moveObstacle() {
+/*function moveObstacle() {
     if(obstacleX + size <= 0) {
         obstacleX = 800;
     }
-    ctx.clearRect(obstacleX-speed-1, obstacleY, obstacleX+size+2, obstacleY+size+2);
+    ctx.clearRect(obstacleX-speed, obstacleY, obstacleX+size, obstacleY+size);
     ctx.fillRect(obstacleX, obstacleY, size, size);
-    obstacleX += speed;
+    obstacleX -= speed;
     window.requestAnimationFrame(moveObstacle);
 }
 
+window.requestAnimationFrame(moveObstacle);*/
+
+let obX = canvas.width;
+let obY = 125;
+const obSize = 25;
+var obSpeed = 2;
+function moveObstacle () {
+    ctx.clearRect(obX, obY, obSize, obSize);
+    obX -= obSpeed;
+    if (obX+obSize <= 0) {
+        obX = canvas.width;
+        obSpeed = Math.floor(Math.random() * (5 - 2) ) + 2;
+    }
+    ctx.fillRect(obX, obY, obSize, obSize);
+    window.requestAnimationFrame(moveObstacle);
+};
 window.requestAnimationFrame(moveObstacle);
 
-function init() {
-    drawChar();
+/*function init() {
+    //drawChar();
 }
 
 //page is loaded, calls init function
 $(() => {
     init();
 });
+*/
