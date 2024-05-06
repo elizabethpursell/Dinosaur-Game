@@ -2,6 +2,7 @@
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
+//character class used to simplify character interactions
 class Character {
     constructor(direction, currX, currY, width, height, speed, floor, ceiling) {
         this.direction = direction;
@@ -13,13 +14,14 @@ class Character {
         this.floor = floor;
         this.ceiling = ceiling;
     }
-
+    
+    //Draw character at its current position
     draw() {
-        //Draw rectangle
         ctx.fillStyle = "blue";
         ctx.fillRect(this.currX, this.currY, this.width, this.height);
     }
 
+    //clears character from the board
     clear() {
         ctx.clearRect(this.currX, this.currY, this.width, this.height);
     }
@@ -41,21 +43,20 @@ let jumping = false;
 
 //makes character jump
 function jump() {
-    if (Character.currY == groundLevel && jumping == true){
-
+    if (myCharacter.currY == groundLevel && jumping == true) {
+        jumping = false;
+        return;
+    }
+    if (myCharacter.currY == groundLevel && jumping == false) { //initial jump should catch here
+        jumping = true;
     }
     myCharacter.clear();
     myCharacter.move();
     window.requestAnimationFrame(jump);
-    // console.log("JUMPED");
-    // do {
-    //     character.move();
-    // }while (character.currY != groundLevel);
 }
 
 //if the canvas is clicked, character should jump
 $("#canvas").click((event) => {
-    jumping = true;
     jump(myCharacter);
 });
 
