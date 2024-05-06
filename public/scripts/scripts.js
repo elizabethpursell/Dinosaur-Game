@@ -18,6 +18,21 @@ $("#canvas")[0].click((event) => {
     jump();
 });
 
+var score = 0;
+const scoreX = canvas.width - 80;
+const scoreY = 0;
+const scoreW = 80;
+const scoreH = 20;
+function updateScore () {
+    ctx.clearRect(scoreX, scoreY, scoreW, scoreH);
+    score += .1;
+    ctx.font = "20px Verdana";
+    ctx.textAlign = "left";
+    ctx.fillText(parseInt(score), scoreX + (scoreW / 2), scoreY + (scoreH / 2) + 10, scoreW - 10);
+    window.requestAnimationFrame(updateScore);
+};
+window.requestAnimationFrame(updateScore);
+
 let obX = canvas.width;
 let obY = 125;
 const obSize = 25;
