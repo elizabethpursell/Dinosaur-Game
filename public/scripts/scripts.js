@@ -29,7 +29,7 @@ class Character {
     move() {
         this.clear(); //clear character
         this.currY -= this.speed; //update y position
-        if (this.currY == this.ceiling || this.currY == this.floor) { //if hits the ceiling/floor, change direction
+        if (this.currY <= this.ceiling || this.currY >= this.floor) { //if hits the ceiling/floor, change direction
             this.speed *= -1;
         }
         this.draw(); //redraw character in updated position
@@ -40,7 +40,7 @@ let charHeight = 40; //height of character
 let charWidth = 40; //width of character
 let groundLevel = canvas.height - charHeight; //canvas is 300px, so top left corner should be 300-charHeight
 let ceiling = groundLevel - charHeight * 3; //character can jump 3 times its height
-let jumpSpeed = 2;
+let jumpSpeed = 3;
 let leftMargin = 15; //space between character and left side of canvas
 let myCharacter = new Character(leftMargin, groundLevel, charWidth, charHeight, jumpSpeed, groundLevel, ceiling);
 let jumping = false; //default is to not be jumping
