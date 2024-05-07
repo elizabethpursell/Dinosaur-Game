@@ -7,7 +7,6 @@
 
 const express = require("express");
 const path = require("path");
-const fsPromises = require('fs').promises;
 
 const app = express();
 
