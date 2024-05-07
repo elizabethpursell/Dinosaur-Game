@@ -59,9 +59,10 @@ function jump() {
 
 //if the canvas is clicked, character should jump
 $("#canvas").click((event) => {
-    if(lost == true) {
+    if(lost == true || newgame == true) {
         ctx.clearRect((canvas.width - 250) / 2, (canvas.height - 150) / 2, 250, 150);
         lost = false;
+        newgame = false;
         startGame();
     }
     else if (jumping == false) { //only jump if not already jumping
@@ -89,7 +90,6 @@ function resolveImages() {
     Promise.all(imgPromises).then( () => { 
         console.log("Images have loaded");
         myCharacter.draw();
-        startGame();
     });
 }
 
@@ -104,6 +104,7 @@ $(() => {
 });
 
 var lost = false;
+var newgame = true;
 function startGame() {
     var score = 0;
     function updateScore() {
@@ -128,7 +129,7 @@ function startGame() {
     const obWidth = 30;
     const obHeight = obWidth * 5 / 7;
     let obY = canvas.height - obHeight - 10;
-    var obSpeed = 2;
+    var obSpeed = Math.floor(Math.random() * (5 - 2)) + 2;
     function moveObstacle() {
         ctx.clearRect(obX, obY, obWidth, obHeight);
         obX -= obSpeed;
@@ -139,7 +140,7 @@ function startGame() {
         }
         if (obX + obWidth <= 0) {
             obX = canvas.width;
-            obSpeed = Math.floor(Math.random() * (5 - 2)) + 2;
+            obSpeed = Math.floor(Math.random() * (10 - 2)) + 2;
         }
         ctx.drawImage(imgObjects[1], obX, obY, obWidth, obHeight);
         window.requestAnimationFrame(moveObstacle);
