@@ -158,8 +158,8 @@ function startGame() {
         ctx.textAlign = "center";
         ctx.fillText("GAME OVER", canvas.width / 2, (canvas.height / 2) - 30, 250);
         ctx.font = "16px Verdana";
-        ctx.fillText("Score: " + parseInt(score), canvas.width / 2, (canvas.height / 2) - 10, 250);
-        ctx.fillText("High Score: " + parseInt(highScore), canvas.width / 2, (canvas.height / 2) + 10, 250);
-        ctx.fillText("Click to play again", canvas.width / 2, (canvas.height / 2) + 30, 250);
+        ctx.fillText("Score: " + parseInt(score), canvas.width / 2, (canvas.height / 2) - 5, 250);
+        ctx.fillText("High Score: " + parseInt(highScore), canvas.width / 2, (canvas.height / 2) + 15, 250);
+        ctx.fillText("Click to play again", canvas.width / 2, (canvas.height / 2) + 40, 250);
     }
 }
