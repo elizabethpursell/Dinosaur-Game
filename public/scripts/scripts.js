@@ -69,7 +69,7 @@ $("#canvas").click((event) => {
     }
 });
 
-const imgSrcList = ["img/dino-character.png"];
+const imgSrcList = ["img/dino-character.png", "img/asteroid.png"];
 var imgPromises = [];
 var imgObjects = [];
 
@@ -124,23 +124,24 @@ function startGame() {
     window.requestAnimationFrame(updateScore);
 
     let obX = canvas.width;
-    const obSize = 35;
-    let obY = canvas.height - obSize;
+    // const obSize = 35;
+    const obWidth = 30;
+    const obHeight = obWidth * 5 / 7;
+    let obY = canvas.height - obHeight - 10;
     var obSpeed = 2;
     function moveObstacle() {
-        ctx.clearRect(obX, obY, obSize, obSize);
+        ctx.clearRect(obX, obY, obWidth, obHeight);
         obX -= obSpeed;
-        if (obX <= myCharacter.currX + myCharacter.width && obX + obSize >= myCharacter.currX && obY <= myCharacter.currY + myCharacter.height) {
+        if (obX <= myCharacter.currX + myCharacter.width && obX + obWidth >= myCharacter.currX && obY <= myCharacter.currY + myCharacter.height) {
             lost = true;
             gameOver();
             return;
         }
-        if (obX + obSize <= 0) {
+        if (obX + obWidth <= 0) {
             obX = canvas.width;
             obSpeed = Math.floor(Math.random() * (5 - 2)) + 2;
         }
-        ctx.fillStyle = "black";
-        ctx.fillRect(obX, obY, obSize, obSize);
+        ctx.drawImage(imgObjects[1], obX, obY, obWidth, obHeight);
         window.requestAnimationFrame(moveObstacle);
     };
     window.requestAnimationFrame(moveObstacle);
