@@ -126,7 +126,7 @@ var obSpeed = 2;
 function moveObstacle() {
     ctx.clearRect(obX, obY, obSize, obSize);
     obX -= obSpeed;
-    if (obX <= myCharacter.currX + myCharacter.width && obX >= myCharacter.currX && obY >= myCharacter.currY && obY <= myCharacter.currY + myCharacter.height) {
+    if (obX <= myCharacter.currX + myCharacter.width && obX + obSize >= myCharacter.currX && obY <= myCharacter.currY + myCharacter.height) {
         lost = true;
         gameOver();
         return;
