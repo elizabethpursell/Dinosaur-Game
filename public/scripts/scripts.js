@@ -16,8 +16,10 @@ class Character {
 
     //Draw character at its current position
     draw() {
+        //console.log(imgObjects[0]);
         ctx.fillStyle = "blue";
         ctx.fillRect(this.currX, this.currY, this.width, this.height);
+        //ctx.drawImage(imgObjects[0], this.currX, this.currY);
     }
 
     //clears character from the board
@@ -64,8 +66,33 @@ $("#canvas").click((event) => {
         jump(myCharacter);
 });
 
+const imgSrcList = ["img/dino-character.png"];
+var imgPromises = [];
+var imgObjects = [];
+
+function loadImages() {
+    imgSrcList.forEach( (src, index) => {
+        imgPromises.push(new Promise(function(resolve, reject) {
+            let img = new Image();
+            img.src = src;
+            img.onload = () => resolve(img);
+            img.onerror = () => reject(new Error(`Image loaderror for ${src}`));
+            document.head.append(img);
+        }).then( result => { imgObjects.push(result); }));
+    });
+}
+
+function resolveImages() {
+    Promise.all(imgPromises).then( () => { 
+        console.log("Images have loaded");
+        myCharacter.draw();
+    });
+}
+
 function init() {
-    myCharacter.draw();
+    loadImages();
+    resolveImages();
+    //myCharacter.draw();
 }
 
 //page is loaded, calls init function
