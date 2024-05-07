@@ -59,8 +59,14 @@ function jump() {
 
 //if the canvas is clicked, character should jump
 $("#canvas").click((event) => {
-    if (jumping == false && lost == false) //only jump if not already jumping
+    if(lost == true) {
+        ctx.clearRect((canvas.width - 250) / 2, (canvas.height - 150) / 2, 250, 150);
+        lost = false;
+        startGame();
+    }
+    else if (jumping == false) { //only jump if not already jumping
         jump(myCharacter);
+    }
 });
 
 const imgSrcList = ["img/dino-character.png"];
@@ -83,13 +89,13 @@ function resolveImages() {
     Promise.all(imgPromises).then( () => { 
         console.log("Images have loaded");
         myCharacter.draw();
+        startGame();
     });
 }
 
 function init() {
     loadImages();
     resolveImages();
-    //myCharacter.draw();
 }
 
 //page is loaded, calls init function
@@ -97,53 +103,56 @@ $(() => {
     init();
 });
 
-var score = 0;
 var lost = false;
-function updateScore() {
-    const scoreX = 0;
-    const scoreY = 10;
-    const scoreW = canvas.width;
-    const scoreH = 20;
-    if(lost == false) {
-        ctx.clearRect(scoreX, scoreY, scoreW, scoreH);
-        score += .1;
-        ctx.font = "16px Verdana";
-        ctx.fillStyle = "white";
-        ctx.textAlign = "left";
-        ctx.fillText(parseInt(score), scoreX + 10, scoreY + 14, scoreW);
-        window.requestAnimationFrame(updateScore);
-    }
-};
-window.requestAnimationFrame(updateScore);
+function startGame() {
+    var score = 0;
+    function updateScore() {
+        const scoreX = 0;
+        const scoreY = 10;
+        const scoreW = canvas.width;
+        const scoreH = 20;
+        if(lost == false) {
+            ctx.clearRect(scoreX, scoreY, scoreW, scoreH);
+            score += .1;
+            ctx.font = "16px Verdana";
+            ctx.fillStyle = "white";
+            ctx.textAlign = "left";
+            ctx.fillText(parseInt(score), scoreX + 10, scoreY + 14, scoreW);
+            window.requestAnimationFrame(updateScore);
+        }
+    };
+    window.requestAnimationFrame(updateScore);
 
-let obX = canvas.width;
-const obSize = 35;
-let obY = canvas.height - obSize;
-var obSpeed = 2;
-function moveObstacle() {
-    ctx.clearRect(obX, obY, obSize, obSize);
-    obX -= obSpeed;
-    if (obX <= myCharacter.currX + myCharacter.width && obX + obSize >= myCharacter.currX && obY <= myCharacter.currY + myCharacter.height) {
-        lost = true;
-        gameOver();
-        return;
-    }
-    if (obX + obSize <= 0) {
-        obX = canvas.width;
-        obSpeed = Math.floor(Math.random() * (5 - 2)) + 2;
-    }
-    ctx.fillStyle = "black";
-    ctx.fillRect(obX, obY, obSize, obSize);
+    let obX = canvas.width;
+    const obSize = 35;
+    let obY = canvas.height - obSize;
+    var obSpeed = 2;
+    function moveObstacle() {
+        ctx.clearRect(obX, obY, obSize, obSize);
+        obX -= obSpeed;
+        if (obX <= myCharacter.currX + myCharacter.width && obX + obSize >= myCharacter.currX && obY <= myCharacter.currY + myCharacter.height) {
+            lost = true;
+            gameOver();
+            return;
+        }
+        if (obX + obSize <= 0) {
+            obX = canvas.width;
+            obSpeed = Math.floor(Math.random() * (5 - 2)) + 2;
+        }
+        ctx.fillStyle = "black";
+        ctx.fillRect(obX, obY, obSize, obSize);
+        window.requestAnimationFrame(moveObstacle);
+    };
     window.requestAnimationFrame(moveObstacle);
-};
-window.requestAnimationFrame(moveObstacle);
 
-function gameOver() {
-    ctx.fillStyle = "lightgrey";
-    ctx.fillRect((canvas.width - 250) / 2, (canvas.height - 150) / 2, 250, 150);
-    ctx.font = "16px Verdana";
-    ctx.fillStyle = "black";
-    ctx.textAlign = "center";
-    ctx.fillText("GAME OVER", canvas.width / 2, canvas.height / 2, 250);
-    ctx.fillText("Score: " + parseInt(score), canvas.width / 2, (canvas.height / 2) + 20, 250);
+    function gameOver() {
+        ctx.fillStyle = "lightgrey";
+        ctx.fillRect((canvas.width - 250) / 2, (canvas.height - 150) / 2, 250, 150);
+        ctx.font = "16px Verdana";
+        ctx.fillStyle = "black";
+        ctx.textAlign = "center";
+        ctx.fillText("GAME OVER", canvas.width / 2, (canvas.height / 2) - 20, 250);
+        ctx.fillText("Score: " + parseInt(score), canvas.width / 2, canvas.height / 2, 250);
+        ctx.fillText("Click to play again", canvas.width / 2, (canvas.height / 2) + 20, 250);
+    }
 }
