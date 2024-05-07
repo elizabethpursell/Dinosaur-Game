@@ -74,18 +74,21 @@ $(() => {
 });
 
 var score = 0;
+var lost = false;
 function updateScore() {
     const scoreX = 0;
     const scoreY = 10;
     const scoreW = canvas.width;
     const scoreH = 20;
-    ctx.clearRect(scoreX, scoreY, scoreW, scoreH);
-    score += .1;
-    ctx.font = "16px Verdana";
-    ctx.fillStyle = "white";
-    ctx.textAlign = "left";
-    ctx.fillText(parseInt(score), scoreX + 10, scoreY + 14, scoreW);
-    window.requestAnimationFrame(updateScore);
+    if(lost == false) {
+        ctx.clearRect(scoreX, scoreY, scoreW, scoreH);
+        score += .1;
+        ctx.font = "16px Verdana";
+        ctx.fillStyle = "white";
+        ctx.textAlign = "left";
+        ctx.fillText(parseInt(score), scoreX + 10, scoreY + 14, scoreW);
+        window.requestAnimationFrame(updateScore);
+    }
 };
 window.requestAnimationFrame(updateScore);
 
@@ -96,6 +99,10 @@ var obSpeed = 2;
 function moveObstacle() {
     ctx.clearRect(obX, obY, obSize, obSize);
     obX -= obSpeed;
+    if (obX <= myCharacter.currX + myCharacter.width && obX >= myCharacter.currX && obY >= myCharacter.currY && obY <= myCharacter.currY + myCharacter.height) {
+        lost = true;
+        return;
+    }
     if (obX + obSize <= 0) {
         obX = canvas.width;
         obSpeed = Math.floor(Math.random() * (5 - 2)) + 2;
