@@ -16,10 +16,7 @@ class Character {
 
     //Draw character at its current position
     draw() {
-        //console.log(imgObjects[0]);
-        ctx.fillStyle = "blue";
-        ctx.fillRect(this.currX, this.currY, this.width, this.height);
-        //ctx.drawImage(imgObjects[0], this.currX, this.currY);
+        ctx.drawImage(imgObjects[0], this.currX, this.currY, this.width, this.height);
     }
 
     //clears character from the board
@@ -39,7 +36,7 @@ class Character {
 }
 
 let charHeight = 40; //height of character
-let charWidth = 40; //width of character
+let charWidth = charHeight * 1.5; //width of character
 let groundLevel = canvas.height - charHeight; //canvas is 300px, so top left corner should be 300-charHeight
 let ceiling = groundLevel - charHeight * 3; //character can jump 3 times its height
 let jumpSpeed = 3;
