@@ -1,6 +1,7 @@
 //canvas initializing, needed globally
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
+var highScore = 0;
 
 //character class used to simplify character interactions
 class Character {
@@ -125,7 +126,6 @@ function startGame() {
     window.requestAnimationFrame(updateScore);
 
     let obX = canvas.width;
-    // const obSize = 35;
     const obWidth = 30;
     const obHeight = obWidth * 5 / 7;
     let obY = canvas.height - obHeight - 10;
@@ -135,6 +135,9 @@ function startGame() {
         obX -= obSpeed;
         if (obX <= myCharacter.currX + myCharacter.width && obX + obWidth >= myCharacter.currX && obY <= myCharacter.currY + myCharacter.height) {
             lost = true;
+            if(score > highScore) {
+                highScore = score;
+            }
             gameOver();
             return;
         }
@@ -150,11 +153,13 @@ function startGame() {
     function gameOver() {
         ctx.fillStyle = "lightgrey";
         ctx.fillRect((canvas.width - 250) / 2, (canvas.height - 150) / 2, 250, 150);
-        ctx.font = "16px Verdana";
+        ctx.font = "20px Verdana";
         ctx.fillStyle = "black";
         ctx.textAlign = "center";
-        ctx.fillText("GAME OVER", canvas.width / 2, (canvas.height / 2) - 20, 250);
-        ctx.fillText("Score: " + parseInt(score), canvas.width / 2, canvas.height / 2, 250);
-        ctx.fillText("Click to play again", canvas.width / 2, (canvas.height / 2) + 20, 250);
+        ctx.fillText("GAME OVER", canvas.width / 2, (canvas.height / 2) - 30, 250);
+        ctx.font = "16px Verdana";
+        ctx.fillText("Score: " + parseInt(score), canvas.width / 2, (canvas.height / 2) - 10, 250);
+        ctx.fillText("High Score: " + parseInt(highScore), canvas.width / 2, (canvas.height / 2) + 10, 250);
+        ctx.fillText("Click to play again", canvas.width / 2, (canvas.height / 2) + 30, 250);
     }
 }
