@@ -62,7 +62,7 @@ function jump() {
 
 //if the canvas is clicked, character should jump
 $("#canvas").click((event) => {
-    if (jumping == false) //only jump if not already jumping
+    if (jumping == false && lost == false) //only jump if not already jumping
         jump(myCharacter);
 });
 
@@ -128,6 +128,7 @@ function moveObstacle() {
     obX -= obSpeed;
     if (obX <= myCharacter.currX + myCharacter.width && obX >= myCharacter.currX && obY >= myCharacter.currY && obY <= myCharacter.currY + myCharacter.height) {
         lost = true;
+        gameOver();
         return;
     }
     if (obX + obSize <= 0) {
@@ -139,3 +140,13 @@ function moveObstacle() {
     window.requestAnimationFrame(moveObstacle);
 };
 window.requestAnimationFrame(moveObstacle);
+
+function gameOver() {
+    ctx.fillStyle = "lightgrey";
+    ctx.fillRect((canvas.width - 250) / 2, (canvas.height - 150) / 2, 250, 150);
+    ctx.font = "16px Verdana";
+    ctx.fillStyle = "black";
+    ctx.textAlign = "center";
+    ctx.fillText("GAME OVER", canvas.width / 2, canvas.height / 2, 250);
+    ctx.fillText("Score: " + parseInt(score), canvas.width / 2, (canvas.height / 2) + 20, 250);
+}
